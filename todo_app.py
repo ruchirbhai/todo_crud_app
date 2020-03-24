@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -24,6 +24,15 @@ class Todo(db.Model):
 
 #create the entries in the database
 db.create_all()
+
+# Listen to the create button
+@todo_app.route('/todos/create', methods=['POST'])
+def create_todo():
+    description = request.form.get('description', '')
+    todo = Todo(description=description)
+    db.session.add(todo)
+    db.session.commit()
+    return redirect(url_for('index'))
 
 # show a list of Todos at the homepage
 
