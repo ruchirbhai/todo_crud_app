@@ -13,7 +13,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 class Todo(db.Model):
-    __tablename__ = 'todos3'
+    __tablename__ = 'todos4'
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(), nullable=False)
     completed = db.Column(db.Boolean, nullable=False, default=False)
@@ -29,7 +29,7 @@ class TodoList(db.Model):
     todos = db.relationship('Todo', backref='list', lazy=True)
 
 #create the entries in the database
-db.create_all()
+# db.create_all()
 
 # App route to create new ToDo items using our view and controller to update the Model
 @app.route('/todos/create', methods=['POST'])
